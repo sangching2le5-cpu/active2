@@ -1244,6 +1244,33 @@ function renderProgress(){
 const RENDER={home:renderHome,learn:renderLearn,flashcards:renderFlashcards,practice:renderPractice,
   quiz:renderQuiz,review:renderReview,favorites:renderFavorites,progress:renderProgress};
 
+/* -------- Helper: advance to the next word after marking learned -------- */
+function advanceAfterLearned(justMarked, view){
+  const list = getFiltered();
+  if(!list.length){
+    if(view==='learn'){ learnState.idx = 0; updateLearnBody(); }
+    else if(view==='flashcards'){ fcState.idx = 0; fcState.flipped = false; renderFlashcards(); }
+    return;
+  }
+  const pos = list.findIndex(x=>x.word===justMarked);
+  if(pos >= 0){
+    // Word vẫn còn trong danh sách đã lọc → nhảy sang từ kế tiếp
+    const next = (pos + 1) % list.length;
+    if(view==='learn'){ learnState.idx = next; updateLearnBody(); }
+    else if(view==='flashcards'){ fcState.idx = next; fcState.flipped = false; renderFlashcards(); }
+  } else {
+    // Word đã bị loại khỏi danh sách (do bộ lọc) → vị trí hiện tại đã là từ kế tiếp
+    if(view==='learn'){
+      if(learnState.idx >= list.length) learnState.idx = 0;
+      updateLearnBody();
+    } else if(view==='flashcards'){
+      if(fcState.idx >= list.length) fcState.idx = 0;
+      fcState.flipped = false;
+      renderFlashcards();
+    }
+  }
+}
+
 document.addEventListener('click',e=>{
   const el=e.target.closest('[data-action]');
   if(!el) return;
@@ -1272,9 +1299,14 @@ document.addEventListener('click',e=>{
         S.streak.last=t; S.streak.best=Math.max(S.streak.best,S.streak.current);
       }
       save(); updateTopbar();
-      toast('Marked as learned ✓');
-      if(currentView==='learn'){ learnState.idx++; updateLearnBody(); }
-      else RENDER[currentView]();
+      toast('Marked as learned ✓ — next word');
+
+      // ==== Tự động nhảy sang từ vựng khác ====
+      if(currentView==='learn' || currentView==='flashcards'){
+        advanceAfterLearned(w, currentView);
+      } else {
+        RENDER[currentView]();
+      }
       break;
     }
     case 'filter':
