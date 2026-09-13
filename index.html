@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English Vocabulary — B1–B2 Trainer</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --blue:#2563eb;--blue-d:#1d4ed8;--blue-l:#eaf1fe;--blue-l2:#dbeafe;
+  --ink:#1e293b;--muted:#64748b;--line:#e2e8f0;--card:#fff;--bg:#f2f6fc;
+  --ok:#15803d;--ok-bg:#dcfce7;--bad:#b91c1c;--bad-bg:#fee2e2;--warn:#b45309;--warn-bg:#fef3c7;
+  --r:16px;--shadow:0 1px 2px rgba(15,23,42,.05),0 12px 30px -20px rgba(15,23,42,.45);
+}
+html,body{margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{margin:0 0 .4em;line-height:1.25}
+p{margin:0 0 .6em}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:3px solid #93c5fd;outline-offset:2px;border-radius:8px}
+.skip{position:absolute;left:-9999px;top:0;background:#fff;padding:10px;z-index:999}
+.skip:focus{left:10px;top:10px}
+
+.app{display:grid;grid-template-columns:262px minmax(0,1fr);min-height:100vh}
+.sidebar{
+  background:#fff;border-right:1px solid var(--line);padding:20px 14px;
+  position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:6px;
+}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 8px 16px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.logo{
+  width:42px;height:42px;border-radius:12px;flex:0 0 42px;
+  background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:#fff;
+  display:grid;place-items:center;font-weight:800;letter-spacing:.5px;font-size:15px;
+}
+.brand strong{display:block;font-size:15px}
+.brand span{display:block;font-size:12px;color:var(--muted)}
+.nav-item{
+  display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;
+  border:0;background:transparent;text-align:left;width:100%;font-weight:600;font-size:14.5px;
+  color:#334155;transition:background .15s,color .15s;
+}
+.nav-item:hover{background:#f1f5f9}
+.nav-item.active{background:var(--blue-l);color:var(--blue-d)}
+.nav-item .ic{width:20px;text-align:center;font-size:16px}
+.side-foot{margin-top:auto;padding:12px 10px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+main{padding:22px 30px 120px;min-width:0;max-width:1180px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.topbar h1{font-size:24px;margin:0}
+.pill{
+  background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 14px;
+  font-size:13px;font-weight:600;color:#334155;box-shadow:var(--shadow);
+}
+.view{display:none}
+.view.active{display:block;animation:fade .28s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.bottomnav{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;
+  border-top:1px solid var(--line);z-index:60;padding:6px 4px;gap:2px;
+  justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.bottomnav button{
+  flex:0 0 auto;min-width:64px;background:transparent;border:0;border-radius:12px;
+  padding:6px 8px;font-size:10.5px;font-weight:700;color:#64748b;display:flex;
+  flex-direction:column;align-items:center;gap:2px;
+}
+.bottomnav button .ic{font-size:17px}
+.bottomnav button.active{background:var(--blue-l);color:var(--blue-d)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
+.card-title{font-size:16px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.muted{color:var(--muted)}
+.center{text-align:center}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.row.center{justify-content:center}
+
+.hero{
+  background:linear-gradient(135deg,#eff6ff,#e0ecff);border:1px solid #dbeafe;border-radius:var(--r);
+  padding:26px 24px;margin-bottom:18px;
+}
+.hero h2{font-size:26px;letter-spacing:.02em;text-transform:uppercase;margin-bottom:6px}
+.hero p{color:#475569;margin:0}
+
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:18px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+.stat .num{font-size:24px;font-weight:800;letter-spacing:-.02em}
+.stat .lbl{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.stat.ok .num{color:var(--ok)}
+.stat.warn .num{color:var(--warn)}
+.stat.blue .num{color:var(--blue-d)}
+
+.navcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.navcard{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;
+  text-align:left;box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s,border-color .18s;
+}
+.navcard:hover{transform:translateY(-3px);border-color:#bfdbfe;box-shadow:0 18px 34px -22px rgba(37,99,235,.55)}
+.navcard .ic{font-size:26px;display:block;margin-bottom:8px}
+.navcard .t{font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:14px;color:var(--blue-d)}
+.navcard .d{font-size:13px;color:var(--muted);margin-top:2px}
+
+.progress{background:#e5edf9;border-radius:999px;height:10px;overflow:hidden;width:100%}
+.progress .bar{height:100%;width:0;background:linear-gradient(90deg,#60a5fa,#2563eb);border-radius:999px;transition:width .45s ease}
+.progress.sm{height:8px}
+.barline{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:600}
+
+.wordcard{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--shadow)}
+.wc-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.wc-head h3{font-size:30px;letter-spacing:-.02em;margin:0}
+.ipa{color:var(--blue-d);font-size:15px;font-weight:600}
+.wc-badges{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.badge{font-size:11px;font-weight:800;letter-spacing:.05em;padding:4px 10px;border-radius:999px;text-transform:uppercase}
+.badge.lvl{background:var(--blue-l);color:var(--blue-d)}
+.badge.s-new{background:#eef2f7;color:#475569}
+.badge.s-learning{background:var(--warn-bg);color:var(--warn)}
+.badge.s-review{background:#ffe4e6;color:#be123c}
+.badge.s-mastered{background:var(--ok-bg);color:var(--ok)}
+.icon-btn{
+  border:1px solid var(--line);background:#fff;border-radius:10px;width:38px;height:38px;
+  display:grid;place-items:center;font-size:16px;transition:.15s;
+}
+.icon-btn:hover{background:#f1f5f9;transform:translateY(-1px)}
+.icon-btn.on{background:#fef3c7;border-color:#fcd34d;color:#b45309}
+.pos{color:var(--muted);font-size:13.5px;font-weight:600;margin:6px 0 12px;text-transform:lowercase}
+.vi{font-size:19px;font-weight:700;color:#0f172a;margin-bottom:6px}
+.def{color:#334155;margin-bottom:14px}
+.section{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px}
+.section h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
+.ex{font-style:italic;color:#334155}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{background:#f1f5f9;border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:13px}
+.note{background:#fffbeb;border-left:3px solid #f59e0b;padding:8px 12px;border-radius:8px;font-size:13.5px;color:#78350f;margin-top:12px}
+
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.filters input[type=search],.filters select,.answer-row input{
+  padding:10px 13px;border:1px solid var(--line);border-radius:12px;background:#fff;font:inherit;color:inherit;min-width:0;
+}
+.filters input[type=search]{flex:1 1 200px}
+.chip-btn{
+  border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;
+  font-size:13px;font-weight:600;color:#475569;transition:.15s;
+}
+.chip-btn:hover{background:#f1f5f9}
+.chip-btn.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.chips.big .chip-btn{padding:12px 18px;font-size:14px}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 18px;border-radius:12px;border:1px solid transparent;background:#eef2f7;
+  color:var(--ink);font-weight:700;font-size:14.5px;transition:transform .15s,background .15s,box-shadow .15s;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn.primary{background:var(--blue);color:#fff;box-shadow:0 10px 22px -14px rgba(37,99,235,.9)}
+.btn.primary:hover{background:var(--blue-d)}
+.btn.ghost{background:#fff;border-color:var(--line)}
+.btn.danger{background:var(--bad);color:#fff}
+.btn.ok{background:var(--ok);color:#fff}
+.btn.wide{width:100%}
+
+.fc-wrap{max-width:660px;margin:0 auto}
+.flashcard{perspective:1400px;height:340px;cursor:pointer;margin-bottom:16px}
+.fc-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d}
+.flashcard.flipped .fc-inner{transform:rotateY(180deg)}
+.fc-face{
+  position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
+  padding:26px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;overflow:auto;
+}
+.fc-front{background:linear-gradient(160deg,#ffffff,#f2f7ff)}
+.fc-back{transform:rotateY(180deg);justify-content:flex-start;text-align:left;align-items:stretch}
+.fc-word{font-size:38px;letter-spacing:-.02em;margin:8px 0 4px}
+.fc-hint{margin-top:18px;font-size:12px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+
+.qtype{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--blue-d);font-weight:800;margin-bottom:8px}
+.qprompt{font-size:18px;font-weight:600;margin-bottom:16px}
+.options{display:grid;gap:10px}
+.opt{
+  text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:14px;
+  padding:13px 16px;font-size:15px;font-weight:600;transition:.15s;display:flex;gap:10px;align-items:center;
+}
+.opt:hover:not(:disabled){border-color:#bfdbfe;background:#f8fbff}
+.opt .k{
+  width:26px;height:26px;flex:0 0 26px;border-radius:8px;background:#eff4fb;color:#475569;
+  display:grid;place-items:center;font-size:12.5px;font-weight:800;
+}
+.opt.correct{border-color:#86efac;background:var(--ok-bg)}
+.opt.correct .k{background:#16a34a;color:#fff}
+.opt.wrong{border-color:#fca5a5;background:var(--bad-bg)}
+.opt.wrong .k{background:#dc2626;color:#fff}
+.opt:disabled{cursor:default}
+.answer-row{display:flex;gap:10px;flex-wrap:wrap}
+.answer-row input{flex:1 1 200px}
+.feedback{margin-top:16px;border-radius:14px;padding:14px 16px;font-size:14.5px;border:1px solid transparent}
+.feedback.ok{background:var(--ok-bg);border-color:#86efac;color:#14532d}
+.feedback.bad{background:var(--bad-bg);border-color:#fca5a5;color:#7f1d1d}
+.feedback strong{display:block;margin-bottom:4px}
+.anim-ok{animation:pop .32s ease}
+.anim-bad{animation:shake .36s ease}
+@keyframes pop{0%{transform:scale(.96)}60%{transform:scale(1.015)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+
+.quizbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px;font-weight:700;font-size:14px}
+.timer{font-variant-numeric:tabular-nums;background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 14px;box-shadow:var(--shadow)}
+.timer.low{background:var(--bad-bg);border-color:#fca5a5;color:#7f1d1d}
+
+.result-hero{text-align:center;padding:24px 10px}
+.result-score{font-size:52px;font-weight:800;letter-spacing:-.03em;color:var(--blue-d);line-height:1}
+.result-pct{font-size:20px;font-weight:700;color:#0f172a;margin-top:6px}
+.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin:18px 0}
+.eval{background:var(--blue-l);border-radius:14px;padding:14px 16px;font-weight:600;color:#1e3a8a}
+
+.empty{background:#fff;border:1px dashed #cbd5e1;border-radius:var(--r);padding:40px 24px;text-align:center;color:var(--muted)}
+.empty h3{color:#334155;letter-spacing:.05em;text-transform:uppercase;font-size:15px}
+
+.toast{
+  position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);
+  background:#0f172a;color:#fff;padding:11px 20px;border-radius:12px;font-size:14px;font-weight:600;
+  opacity:0;pointer-events:none;transition:.28s;z-index:200;max-width:90vw;text-align:center;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.modal-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.5);display:grid;place-items:center;z-index:300;padding:16px}
+.modal{background:#fff;border-radius:18px;padding:24px;max-width:440px;width:100%;box-shadow:0 30px 60px -20px rgba(0,0,0,.5)}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+
+@media (max-width:900px){
+  .app{grid-template-columns:1fr}
+  .sidebar{display:none}
+  main{padding:16px 14px 110px}
+  .bottomnav{display:flex}
+  .hero{padding:20px 18px}
+  .hero h2{font-size:21px}
+  .fc-word{font-size:30px}
+  .wc-head h3{font-size:25px}
+  .card{padding:16px}
+  .wordcard{padding:18px}
+}
+@media (max-width:420px){
+  .stat .num{font-size:20px}
+  .btn{padding:10px 14px;font-size:14px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="app">
+  <aside class="sidebar" aria-label="Main navigation">
+    <div class="brand">
+      <div class="logo">EV</div>
+      <div>
+        <strong>English Vocabulary</strong>
+        <span>B1 – B2 Trainer</span>
+      </div>
+    </div>
+    <nav id="sideNav"></nav>
+    <div class="side-foot">🔥 <span id="sideStreak">0</span> day streak</div>
+  </aside>
+
+  <main id="main">
+    <header class="topbar">
+      <h1 id="pageTitle">Home</h1>
+      <span class="pill" id="dailyPill">🎯 Daily goal 0/10</span>
+    </header>
+
+    <section id="view-home" class="view active"></section>
+    <section id="view-learn" class="view"></section>
+    <section id="view-flashcards" class="view"></section>
+    <section id="view-practice" class="view"></section>
+    <section id="view-quiz" class="view"></section>
+    <section id="view-review" class="view"></section>
+    <section id="view-favorites" class="view"></section>
+    <section id="view-progress" class="view"></section>
+  </main>
+</div>
+
+<nav class="bottomnav" id="bottomNav" aria-label="Mobile navigation"></nav>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<div id="modalRoot"></div>
+
+<script>
+"use strict";
+
+/* =========================================================
+   1. VOCABULARY DATA — UNIT 1, 2, 3
+   ========================================================= */
+const WORDS = [
+/* ---------------- UNIT 1 · Chapter 1 ---------------- */
+{word:'encourage',pos:'verb',ipa:'/ɪnˈkʌrɪdʒ/',vi:'khuyến khích, động viên',def:'to give someone confidence, for example, by letting them know that what they did is good',ex:"When things aren't going well, he encourages me.",col:['encourage somebody to do','strongly encourage','encourage participation'],fam:['encourage (v)','encouragement (n)','encouraging (adj)'],syn:['motivate','support'],ant:['discourage'],note:'Followed by an object + to-infinitive: encourage somebody to do something.',lvl:'B1',cat:'Personality',wf:{s:'Her teacher gave her a lot of ______ before the exam.',a:'encouragement',o:['encouragement','encourage','encouraging','encouraged']}},
+{word:'hands-on',pos:'adjective',ipa:'/ˌhændzˈɒn/',vi:'thực hành trực tiếp',def:'actually doing a particular thing, rather than just talking about it or getting someone else to do it',ex:'Ninety-nine per cent of primary pupils now have hands-on experience of computers.',col:['hands-on experience','hands-on training','hands-on approach'],fam:['hands-on (adj)'],syn:['practical','direct'],ant:['theoretical'],note:'Usually used before a noun: hands-on experience.',lvl:'B2',cat:'Study & Skills'},
+{word:'healthy',pos:'adjective',ipa:'/ˈhelθi/',vi:'khỏe mạnh',def:'well and not suffering from any illness',ex:'Most of us need to exercise more to be healthy.',col:['stay healthy','a healthy diet','perfectly healthy'],fam:['health (n)','healthy (adj)','healthily (adv)','unhealthy (adj)'],syn:['fit','well'],ant:['unhealthy','ill'],note:'',lvl:'B1',cat:'Food & Cooking',wf:{s:'You should eat more fruit to stay ______.',a:'healthy',o:['healthy','health','healthily','unhealthy']}},
+{word:'ingredients',pos:'noun',ipa:'/ɪnˈɡriːdiənts/',vi:'nguyên liệu',def:'things that are used to make something, especially all the different foods you use when you are cooking a particular dish',ex:'Mix together all the ingredients.',col:['mix the ingredients','fresh ingredients','the main ingredients'],fam:['ingredient (n)'],syn:['components','elements'],ant:[],note:'Usually plural when talking about a recipe.',lvl:'B1',cat:'Food & Cooking'},
+{word:'kitchen',pos:'noun',ipa:'/ˈkɪtʃən/',vi:'nhà bếp',def:'a room that is used for cooking and for household jobs such as washing dishes',ex:'She was in the kitchen preparing dinner for the family.',col:['in the kitchen','a fitted kitchen','kitchen equipment'],fam:['kitchen (n)'],syn:['galley'],ant:[],note:'',lvl:'B1',cat:'Food & Cooking'},
+{word:'qualified',pos:'adjective',ipa:'/ˈkwɒlɪfaɪd/',vi:'đủ tiêu chuẩn, có trình độ',def:'someone who has the skills or experience in order to work in a particular profession',ex:'There are not enough qualified teachers in the country.',col:['highly qualified','fully qualified','a qualified teacher'],fam:['qualify (v)','qualification (n)','qualified (adj)'],syn:['certified','trained'],ant:['unqualified'],note:'',lvl:'B2',cat:'Study & Skills'},
+{word:'recipe',pos:'noun',ipa:'/ˈresəpi/',vi:'công thức nấu ăn',def:'a document that describes how to cook something',ex:'He got a recipe for chocolate cake from the cookbook.',col:['follow a recipe','a recipe for','a simple recipe'],fam:['recipe (n)'],syn:['instructions','method'],ant:[],note:'',lvl:'B1',cat:'Food & Cooking'},
+{word:'serve',pos:'verb',ipa:'/sɜːv/',vi:'phục vụ (đồ ăn, thức uống)',def:'to give someone food and drinks',ex:'Tonight the restaurant is serving a cold tomato soup.',col:['serve food','serve a meal','serve a purpose'],fam:['serve (v)','service (n)','server (n)'],syn:['provide','supply'],ant:[],note:'',lvl:'B1',cat:'Food & Cooking'},
+
+/* ---------------- UNIT 1 · Chapter 2 ---------------- */
+{word:'add',pos:'verb',ipa:'/æd/',vi:'thêm vào',def:'to put something in or on the other thing, to increase, complete, or improve it',ex:'Add the cheese to the pasta sauce.',col:['add to','add something up','add an ingredient'],fam:['add (v)','addition (n)','additional (adj)'],syn:['include','put in'],ant:['remove'],note:'',lvl:'B1',cat:'Food & Cooking',wf:{s:'In ______ to English, she also studies French.',a:'addition',o:['addition','add','additional','additionally']}},
+{word:'bake',pos:'verb',ipa:'/beɪk/',vi:'nướng (bánh)',def:'to cook in the oven without any extra liquid or fat',ex:'Bake the cake for 35 to 50 minutes.',col:['bake a cake','bake bread','freshly baked'],fam:['bake (v)','baker (n)','bakery (n)','baking (n)'],syn:['roast','cook'],ant:[],note:'',lvl:'B1',cat:'Food & Cooking'},
+{word:'check',pos:'verb',ipa:'/tʃek/',vi:'kiểm tra',def:'to make sure that something is correct',ex:'He checked that he had his room key.',col:['check something','check for','double-check'],fam:['check (v/n)','checked (adj)'],syn:['verify','examine'],ant:['ignore'],note:'',lvl:'B1',cat:'Food & Cooking'},
+{word:'cool',pos:'verb',ipa:'/kuːl/',vi:'làm nguội',def:'to become lower in temperature',ex:'I waited for the fan to cool the room.',col:['cool down','let it cool','cool the room'],fam:['cool (v/adj)','cooling (n)','coolly (adv)'],syn:['chill','refresh'],ant:['heat'],note:'',lvl:'B1',cat:'Food & Cooking'},
+{word:'melt',pos:'verb',ipa:'/melt/',vi:'tan chảy',def:'to change to a liquid, usually when heated',ex:'The snow had melted, but the lake was still frozen solid.',col:['melt in your mouth','melt away','melted cheese'],fam:['melt (v)','melted (adj)','melting (adj)'],syn:['dissolve','thaw'],ant:['freeze'],note:'',lvl:'B1',cat:'Food & Cooking'},
+{word:'mix',pos:'verb',ipa:'/mɪks/',vi:'trộn',def:'to stir or shake together, or combine in some other way, so that it becomes a single substance',ex:'It mixes easily with cold or hot water to make a tasty drink.',col:['mix together','mix well','mix ingredients'],fam:['mix (v/n)','mixture (n)','mixed (adj)'],syn:['blend','combine'],ant:['separate'],note:'',lvl:'B1',cat:'Food & Cooking',wf:{s:'Stir the ______ until it becomes smooth.',a:'mixture',o:['mixture','mix','mixed','mixing']}},
+{word:'pour',pos:'verb',ipa:'/pɔːr/',vi:'rót, đổ',def:'to make a liquid flow steadily out of a container by holding the container at an angle',ex:'Heat the oil in a frying-pan, then pour in the egg mixture.',col:['pour in','pour out','pour water'],fam:['pour (v)'],syn:['tip','spill'],ant:[],note:'',lvl:'B1',cat:'Food & Cooking'},
+{word:'spray',pos:'verb',ipa:'/spreɪ/',vi:'phun, xịt',def:'to cover or scatter an area',ex:'Remember to spray the flowers with water twice a day.',col:['spray with','spray water','hair spray'],fam:['spray (v/n)','sprayer (n)'],syn:['sprinkle','shower'],ant:[],note:'',lvl:'B1',cat:'Food & Cooking'},
+
+/* ---------------- UNIT 2 · Chapter 1 ---------------- */
+{word:'beat',pos:'verb',ipa:'/biːt/',vi:'đánh bại',def:'to do better than someone in a competition',ex:"In yesterday's games, Switzerland beat the United States two-one.",col:['beat somebody','beat a record','beat the competition'],fam:['beat (v/n)','beaten (adj)','beating (n)'],syn:['defeat','overcome'],ant:['lose to'],note:'Irregular verb: beat – beat – beaten.',lvl:'B1',cat:'Competition & Sport'},
+{word:'champion',pos:'noun',ipa:'/ˈtʃæmpiən/',vi:'nhà vô địch',def:'someone who has won the first prize in a competition, contest, or fight',ex:'She is a champion boxer and wrestler.',col:['world champion','become champion','defending champion'],fam:['champion (n)','championship (n)'],syn:['winner','victor'],ant:['loser'],note:'',lvl:'B1',cat:'Competition & Sport'},
+{word:'competitor',pos:'noun',ipa:'/kəmˈpetɪtər/',vi:'đối thủ, thí sinh',def:'a person who takes part in a competition or contest',ex:'Herbert Blocker of Germany, one of the oldest competitors, won the silver medal.',col:['a strong competitor','the main competitor','a rival competitor'],fam:['compete (v)','competition (n)','competitive (adj)','competitor (n)'],syn:['rival','contestant'],ant:['spectator'],note:'',lvl:'B1',cat:'Competition & Sport'},
+{word:'confident',pos:'adjective',ipa:'/ˈkɒnfɪdənt/',vi:'tự tin',def:'to be sure of your ability or idea, or that something is true or right',ex:'I am confident that people will believe my story.',col:['feel confident','confident about','a confident speaker'],fam:['confidence (n)','confident (adj)','confidently (adv)'],syn:['assured','self-assured'],ant:['insecure','nervous'],note:'',lvl:'B1',cat:'Personality',wf:{s:'She spoke with great ______ during the presentation.',a:'confidence',o:['confidence','confident','confidently','confide']}},
+{word:'confused',pos:'adjective',ipa:'/kənˈfjuːzd/',vi:'bối rối, lúng túng',def:'not knowing exactly what is happening or what to do',ex:'Things were happening too quickly and Brian was confused.',col:['get confused','confused about','totally confused'],fam:['confuse (v)','confused (adj)','confusing (adj)','confusion (n)'],syn:['puzzled','bewildered'],ant:['clear','certain'],note:'',lvl:'B1',cat:'Personality'},
+{word:'machine',pos:'noun',ipa:'/məˈʃiːn/',vi:'máy móc',def:'a piece of equipment which uses electricity or an engine in order to do a particular kind of work',ex:'I put the coin in the machine and pressed the button.',col:['a washing machine','a coffee machine','machine parts'],fam:['machine (n)','machinery (n)','mechanical (adj)'],syn:['device','appliance'],ant:[],note:'',lvl:'B1',cat:'Competition & Sport'},
+{word:'opponent',pos:'noun',ipa:'/əˈpəʊnənt/',vi:'đối thủ',def:'in a contest, your opponent is the person who is playing against you',ex:'Norris knocked down his opponent twice in the early rounds of the fight.',col:['a political opponent','beat an opponent','a worthy opponent'],fam:['opponent (n)','oppose (v)','opposition (n)'],syn:['rival','adversary'],ant:['ally','partner'],note:'',lvl:'B2',cat:'Competition & Sport'},
+{word:'wonder',pos:'noun',ipa:'/ˈwʌndər/',vi:'điều kỳ diệu',def:'something that causes people to feel great surprise or admiration',ex:'That building is a wonder.',col:['a natural wonder','the wonders of','no wonder'],fam:['wonder (n/v)','wonderful (adj)','wonderfully (adv)'],syn:['marvel','miracle'],ant:[],note:'',lvl:'B1',cat:'Competition & Sport'},
+
+/* ---------------- UNIT 2 · Chapter 2 ---------------- */
+{word:'discussion',pos:'noun',ipa:'/dɪˈskʌʃən/',vi:'cuộc thảo luận',def:'a talk, often in order to reach a decision',ex:'There was a lot of discussion about the report.',col:['have a discussion','a group discussion','under discussion'],fam:['discuss (v)','discussion (n)'],syn:['debate','conversation'],ant:[],note:'',lvl:'B1',cat:'Communication'},
+{word:'during',pos:'preposition',ipa:'/ˈdjʊərɪŋ/',vi:'trong suốt, trong khoảng',def:'If something happens during a period of time or an event, it happens continuously, or happens several times between the beginning and end of that period or event',ex:'Storms are common during the summer.',col:['during the day','during the meeting','during the holidays'],fam:['during (prep)'],syn:['throughout','in'],ant:[],note:'Followed by a noun, not a clause: during the summer (NOT during the summer is hot).',lvl:'B1',cat:'Communication'},
+{word:'keep in touch',pos:'expression',ipa:'/ˌkiːp ɪn ˈtʌtʃ/',vi:'giữ liên lạc',def:'to maintain communications with someone or know how they are doing',ex:'I still keep in touch with people I met in university.',col:['keep in touch with','stay in touch','lose touch'],fam:['keep in touch (expr)'],syn:['stay in contact','remain in contact'],ant:['lose touch'],note:'',lvl:'B1',cat:'Communication'},
+{word:'opinion',pos:'noun',ipa:'/əˈpɪnjən/',vi:'ý kiến',def:'what you think or believe about something',ex:"I wasn't asking for your opinion.",col:['in my opinion','a strong opinion','public opinion'],fam:['opinion (n)','opinionated (adj)'],syn:['view','belief'],ant:[],note:'',lvl:'B1',cat:'Communication'},
+{word:'surely',pos:'adverb',ipa:'/ˈʃʊəli/',vi:'chắc chắn là',def:'emphasizes that you think something should be true, and you would be surprised if it was not true',ex:'If I can accept this situation, surely you can.',col:['surely not','surely not!','surely you agree'],fam:['sure (adj)','surely (adv)','sureness (n)'],syn:['certainly','definitely'],ant:['doubtfully'],note:'',lvl:'B2',cat:'Communication'},
+{word:'temperature',pos:'noun',ipa:'/ˈtemprətʃər/',vi:'nhiệt độ',def:'a measure of how hot or cold it is',ex:'The temperature dropped at night.',col:['high temperature','room temperature','take somebody’s temperature'],fam:['temperature (n)','temperate (adj)'],syn:['heat','warmth'],ant:['cold'],note:'',lvl:'B1',cat:'Feelings & Description'},
+{word:'useful',pos:'adjective',ipa:'/ˈjuːsfəl/',vi:'hữu ích',def:'something that can do something or help you do something',ex:'This book might be useful for people who want to learn how to speak in public.',col:['very useful','useful for','useful information'],fam:['use (v/n)','useful (adj)','usefully (adv)','useless (adj)','usefulness (n)'],syn:['helpful','practical'],ant:['useless'],note:'',lvl:'B1',cat:'Study & Skills',wf:{s:'A dictionary is a ______ tool for language learners.',a:'useful',o:['useful','use','useless','usefully']}},
+{word:'vote',pos:'verb',ipa:'/vəʊt/',vi:'bỏ phiếu, bầu cử',def:'to make your choice officially at a meeting or in an election, for example by raising your hand',ex:'Nearly everyone voted for him at the company meeting.',col:['vote for','vote against','vote in an election'],fam:['vote (v/n)','voter (n)','voting (n)'],syn:['elect','choose'],ant:['abstain'],note:'',lvl:'B1',cat:'Communication'},
+
+/* ---------------- UNIT 3 · Chapter 1 ---------------- */
+{word:'abroad',pos:'adverb',ipa:'/əˈbrɔːd/',vi:'ở nước ngoài',def:'a foreign country, usually one separated by an ocean or a sea',ex:'I would love to go abroad this year, perhaps to the South of France.',col:['go abroad','study abroad','live abroad'],fam:['abroad (adv)'],syn:['overseas','foreign'],ant:['at home'],note:'Never used with "to": go abroad (NOT go to abroad).',lvl:'B1',cat:'Travel & Culture'},
+{word:'comfortable',pos:'adjective',ipa:'/ˈkʌmfətəbəl/',vi:'thoải mái',def:'to feel confident and relaxed',ex:"She wasn't very comfortable at the party because she didn't know anyone.",col:['feel comfortable','comfortable with','perfectly comfortable'],fam:['comfort (n/v)','comfortable (adj)','comfortably (adv)','uncomfortable (adj)'],syn:['relaxed','at ease'],ant:['uncomfortable','uneasy'],note:'',lvl:'B1',cat:'Personality'},
+{word:'culture',pos:'noun',ipa:'/ˈkʌltʃər/',vi:'văn hóa',def:'the way of life or beliefs of a particular society or civilization',ex:'We must learn to mix with people of different cultures.',col:['popular culture','cultural differences','a culture shock'],fam:['culture (n)','cultural (adj)','culturally (adv)'],syn:['tradition','customs'],ant:[],note:'',lvl:'B1',cat:'Travel & Culture'},
+{word:'excellent',pos:'adjective',ipa:'/ˈeksələnt/',vi:'xuất sắc',def:'very good',ex:'She is excellent at her job.',col:['excellent at','an excellent idea','absolutely excellent'],fam:['excellence (n)','excel (v)','excellent (adj)','excellently (adv)'],syn:['outstanding','superb'],ant:['poor','terrible'],note:'',lvl:'B1',cat:'Feelings & Description'},
+{word:'exciting',pos:'adjective',ipa:'/ɪkˈsaɪtɪŋ/',vi:'thú vị, hào hứng',def:'something that makes you feel very happy or enthusiastic',ex:'The race itself is very exciting.',col:['an exciting experience','really exciting','exciting news'],fam:['excite (v)','excited (adj)','exciting (adj)','excitement (n)'],syn:['thrilling','stimulating'],ant:['boring','dull'],note:'Use excited for people, exciting for things.',lvl:'B1',cat:'Feelings & Description'},
+{word:'experience',pos:'noun',ipa:'/ɪkˈspɪəriəns/',vi:'kinh nghiệm; trải nghiệm',def:'something that you do or that happens to you, especially something important that affects you',ex:'He had a bad experience with a spider when he was young.',col:['work experience','gain experience','a memorable experience'],fam:['experience (n/v)','experienced (adj)'],syn:['practice','expertise'],ant:[],note:'Uncountable when it means general knowledge; countable when it means an event.',lvl:'B1',cat:'Travel & Culture'},
+{word:'make sure',pos:'expression',ipa:'/ˌmeɪk ˈʃʊər/',vi:'đảm bảo',def:'check that something is the way you want it to be',ex:'Make sure that you follow the instructions carefully.',col:['make sure that','make sure of','make sure to do'],fam:['make sure (expr)'],syn:['ensure','check'],ant:[],note:'',lvl:'B1',cat:'Study & Skills'},
+{word:'miss',pos:'verb',ipa:'/mɪs/',vi:'nhớ nhung',def:'to feel sad and wish someone you love was with you',ex:'I really miss my sister, who is studying in another country.',col:['miss somebody','miss home','really miss'],fam:['miss (v/n)','missing (adj)','missed (adj)'],syn:['long for','yearn for'],ant:['see'],note:'',lvl:'B1',cat:'Travel & Culture'},
+
+/* ---------------- UNIT 3 · Chapter 2 ---------------- */
+{word:'awesome',pos:'adjective',ipa:'/ˈɔːsəm/',vi:'tuyệt vời',def:'someone or something that is very impressive',ex:'The new restaurant has really awesome food.',col:['really awesome','absolutely awesome','awesome experience'],fam:['awe (n)','awesome (adj)','awesomely (adv)'],syn:['amazing','impressive'],ant:['awful','terrible'],note:'Informal; common in spoken English.',lvl:'B1',cat:'Feelings & Description'},
+{word:'embarrassed',pos:'adjective',ipa:'/ɪmˈbærəst/',vi:'xấu hổ, ngại ngùng',def:'to feel shy, ashamed, or guilty about something',ex:'He was embarrassed by the tear in his pants.',col:['feel embarrassed','embarrassed about','deeply embarrassed'],fam:['embarrass (v)','embarrassed (adj)','embarrassing (adj)','embarrassment (n)'],syn:['ashamed','sheepish'],ant:['proud'],note:'Use embarrassed for people, embarrassing for situations.',lvl:'B1',cat:'Personality'},
+{word:'hardly',pos:'adverb',ipa:'/ˈhɑːdli/',vi:'hầu như không',def:'emphasizes that something is very difficult to do',ex:'My garden was covered with so many butterflies that I could hardly see the flowers.',col:['hardly ever','hardly any','can hardly'],fam:['hard (adj/adv)','hardly (adv)'],syn:['barely','scarcely'],ant:['easily'],note:'Hardly has a negative meaning — do not use it with another negative.',lvl:'B2',cat:'Feelings & Description'},
+{word:'improve',pos:'verb',ipa:'/ɪmˈpruːv/',vi:'cải thiện, nâng cao',def:'to get better at something',ex:'He said he was going to improve his football.',col:['improve your English','improve performance','greatly improve'],fam:['improve (v)','improvement (n)','improved (adj)'],syn:['enhance','develop'],ant:['worsen'],note:'',lvl:'B1',cat:'Study & Skills',wf:{s:'There has been a clear ______ in her writing this term.',a:'improvement',o:['improvement','improve','improved','improving']}},
+{word:'journal',pos:'noun',ipa:'/ˈdʒɜːnəl/',vi:'nhật ký',def:'a record of activities you do every day',ex:'I keep a journal of what I learned in English class.',col:['keep a journal','write in a journal','a personal journal'],fam:['journal (n)','journalist (n)','journalism (n)'],syn:['diary','log'],ant:[],note:'',lvl:'B1',cat:'Study & Skills'},
+{word:'lots of',pos:'expression',ipa:'/ˌlɒts əv/',vi:'nhiều',def:'a large number of something',ex:'We have lots of land to build whatever we want.',col:['lots of people','lots of time','lots of money'],fam:['lots of (expr)','a lot of (expr)'],syn:['plenty of','a great deal of'],ant:['few','little'],note:'Informal; "a lot of" is more formal.',lvl:'B1',cat:'Feelings & Description'},
+{word:'practice',pos:'verb',ipa:'/ˈpræktɪs/',vi:'luyện tập',def:'doing something regularly in order to be able to do it better',ex:'I practice speaking English to my parents every day.',col:['practice doing','practice makes perfect','daily practice'],fam:['practice (v/n)','practical (adj)','practically (adv)'],syn:['train','rehearse'],ant:['neglect'],note:'British English: practise (verb), practice (noun).',lvl:'B1',cat:'Study & Skills',wf:{s:'She needs more ______ before the exam.',a:'practice',o:['practice','practical','practically','practising']}},
+{word:'shy',pos:'adjective',ipa:'/ʃaɪ/',vi:'nhút nhát, e dè',def:'nervous and uncomfortable with other people',ex:"She's so shy that she does not speak much to strangers.",col:['a shy person','shy about','painfully shy'],fam:['shy (adj)','shyly (adv)','shyness (n)'],syn:['timid','reserved'],ant:['confident','outgoing'],note:'',lvl:'B1',cat:'Personality'}
+];
+
+/* normalise optional fields */
+WORDS.forEach(w=>{
+  w.col=w.col||[]; w.fam=w.fam||[]; w.syn=w.syn||[]; w.ant=w.ant||[];
+  w.note=w.note||''; w.wf=w.wf||null;
+});
+const CATS=[...new Set(WORDS.map(w=>w.cat))].sort();
+const LEVEL_RANK={'B1':1,'B1+':2,'B2':3};
+
+/* =========================================================
+   2. STATE
+   ========================================================= */
+const STORAGE_KEY='vocabAppV1';
+function todayStr(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function yesterdayStr(){const d=new Date();d.setDate(d.getDate()-1);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+
+function defaultState(){
+  return {
+    words:{}, fav:[], mistakes:[],
+    daily:{date:todayStr(), words:[], goal:10},
+    streak:{current:0,best:0,last:null},
+    stats:{practiceCorrect:0,practiceTotal:0,quizCorrect:0,quizTotal:0,quizHistory:[]}
+  };
+}
+function loadState(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw) return defaultState();
+    const d=JSON.parse(raw); const b=defaultState();
+    const s=Object.assign(b,d);
+    s.daily=Object.assign(b.daily,d.daily||{});
+    s.streak=Object.assign(b.streak,d.streak||{});
+    s.stats=Object.assign(b.stats,d.stats||{});
+    s.words=d.words||{}; s.fav=d.fav||[]; s.mistakes=d.mistakes||[];
+    return s;
+  }catch(e){ return defaultState(); }
+}
+let S=loadState();
+function save(){ try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(S)); }catch(e){} }
+
+function refreshDailyAndStreak(){
+  const t=todayStr(), y=yesterdayStr();
+  if(S.daily.date!==t){ S.daily.date=t; S.daily.words=[]; }
+  if(S.streak.last && S.streak.last!==t && S.streak.last!==y) S.streak.current=0;
+  save();
+}
+
+/* =========================================================
+   3. HELPERS
+   ========================================================= */
+const $=s=>document.querySelector(s);
+const $$=s=>Array.from(document.querySelectorAll(s));
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function norm(s){return String(s||'').toLowerCase().trim().replace(/\s+/g,' ').replace(/[.,!?;:'"“”’]/g,'');}
+let toastTimer=null;
+function toast(msg){
+  const el=$('#toast'); el.textContent=msg; el.classList.add('show');
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),2100);
+}
+
+/* ---------- speech ---------- */
+let VOICES=[];
+function loadVoices(){ try{ VOICES=window.speechSynthesis?speechSynthesis.getVoices():[]; }catch(e){ VOICES=[]; } }
+if('speechSynthesis' in window){ loadVoices(); speechSynthesis.onvoiceschanged=loadVoices; }
+function speak(text){
+  if(!('speechSynthesis' in window)){ toast('Speech is not supported in this browser.'); return; }
+  try{
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang='en-GB'; u.rate=0.92; u.pitch=1;
+    const v=VOICES.find(v=>v.lang==='en-GB')||VOICES.find(v=>/^en-GB/i.test(v.lang))||VOICES.find(v=>/^en/i.test(v.lang));
+    if(v) u.voice=v;
+    speechSynthesis.speak(u);
+  }catch(e){ toast('Audio is not available.'); }
+}
+
+/* =========================================================
+   4. PROGRESS LOGIC
+   ========================================================= */
+function getP(word){ return S.words[word]||null; }
+function statusOf(word){
+  const p=S.words[word];
+  if(!p||(p.c===0&&p.w===0)) return 'new';
+  if(p.streak>=3) return 'mastered';
+  if(p.w>p.c || (p.w>0&&p.streak===0)) return 'review';
+  return 'learning';
+}
+function statusLabel(s){ return {new:'New',learning:'Learning',review:'Review',mastered:'Mastered'}[s]||'New'; }
+function countStatuses(){
+  const c={new:0,learning:0,review:0,mastered:0};
+  WORDS.forEach(w=>{ c[statusOf(w.word)]++; });
+  return c;
+}
+function recordAnswer(word, correct, mistakeInfo){
+  const p=S.words[word]||(S.words[word]={c:0,w:0,streak:0});
+  if(correct){ p.c++; p.streak++; }
+  else{ p.w++; p.streak=0; }
+  const t=todayStr();
+  if(S.daily.date!==t){ S.daily.date=t; S.daily.words=[]; }
+  if(!S.daily.words.includes(word)) S.daily.words.push(word);
+  if(S.streak.last!==t){
+    S.streak.current = (S.streak.last===yesterdayStr()) ? S.streak.current+1 : 1;
+    S.streak.last=t;
+    S.streak.best=Math.max(S.streak.best,S.streak.current);
+  }
+  if(correct){
+    S.mistakes=S.mistakes.filter(m=>m.word!==word);
+  }else if(mistakeInfo){
+    S.mistakes=S.mistakes.filter(m=>m.word!==word);
+    S.mistakes.unshift(Object.assign({word:word,ts:Date.now()},mistakeInfo));
+    if(S.mistakes.length>200) S.mistakes.length=200;
+  }
+  save(); updateTopbar();
+}
+function overallAccuracy(){
+  const c=S.stats.practiceCorrect+S.stats.quizCorrect;
+  const t=S.stats.practiceTotal+S.stats.quizTotal;
+  return t? Math.round(c/t*100) : 0;
+}
+function updateTopbar(){
+  const d=S.daily;
+  $('#dailyPill').textContent='🎯 Daily goal '+Math.min(d.words.length,d.goal)+'/'+d.goal;
+  $('#sideStreak').textContent=S.streak.current;
+}
+
+/* =========================================================
+   5. NAVIGATION
+   ========================================================= */
+const NAV=[
+  ['home','Home','🏠'],['learn','Learn','📘'],['flashcards','Flashcards','🃏'],
+  ['practice','Practice','✍️'],['quiz','Quiz','🎯'],['review','Review','🔁'],
+  ['favorites','Favourites','⭐'],['progress','Progress','📊']
+];
+const TITLES={home:'Home',learn:'Learn',flashcards:'Flashcards',practice:'Practice',quiz:'Quiz',review:'Review',favorites:'Favourites',progress:'Progress'};
+let currentView='home';
+
+function buildNav(){
+  const s=$('#sideNav'), b=$('#bottomNav');
+  s.innerHTML=NAV.map(([k,l,i])=>`<button class="nav-item" data-action="nav" data-view="${k}" aria-label="${l}"><span class="ic" aria-hidden="true">${i}</span>${l}</button>`).join('');
+  b.innerHTML=NAV.map(([k,l,i])=>`<button data-action="nav" data-view="${k}" aria-label="${l}"><span class="ic" aria-hidden="true">${i}</span>${l}</button>`).join('');
+}
+function go(name){
+  if(!TITLES[name]) name='home';
+  currentView=name;
+  $$('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+name));
+  $$('[data-action="nav"]').forEach(n=>{
+    const on=n.dataset.view===name;
+    n.classList.toggle('active',on);
+    if(on) n.setAttribute('aria-current','page'); else n.removeAttribute('aria-current');
+  });
+  $('#pageTitle').textContent=TITLES[name];
+  RENDER[name]();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* =========================================================
+   6. SHARED COMPONENTS
+   ========================================================= */
+function wordCardHTML(w){
+  const st=statusOf(w.word);
+  const fav=S.fav.includes(w.word);
+  return `
+  <article class="wordcard">
+    <div class="wc-head">
+      <div>
+        <h3>${esc(w.word)}</h3>
+        <div class="ipa">${esc(w.ipa)}</div>
+      </div>
+      <div class="wc-badges">
+        <span class="badge lvl">${esc(w.lvl)}</span>
+        <span class="badge s-${st}">${statusLabel(st)}</span>
+        <button class="icon-btn" data-action="speak" data-word="${esc(w.word)}" aria-label="Listen to ${esc(w.word)}">🔊</button>
+        <button class="icon-btn ${fav?'on':''}" data-action="fav" data-word="${esc(w.word)}" aria-label="${fav?'Remove from':'Add to'} favourites" aria-pressed="${fav}">${fav?'★':'☆'}</button>
+      </div>
+    </div>
+    <div class="pos">${esc(w.pos)} · ${esc(w.cat)}</div>
+    <div class="vi">${esc(w.vi)}</div>
+    <div class="def">${esc(w.def)}</div>
+    <div class="section"><h4>Example</h4><p class="ex">${esc(w.ex)}</p></div>
+    ${w.col.length?`<div class="section"><h4>Collocations</h4><div class="chips">${w.col.map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div></div>`:''}
+    ${w.fam.length?`<div class="section"><h4>Word family</h4><div class="chips">${w.fam.map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div></div>`:''}
+    ${w.syn.length?`<div class="section"><h4>Synonyms</h4><div class="chips">${w.syn.map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div></div>`:''}
+    ${w.ant.length?`<div class="section"><h4>Antonyms</h4><div class="chips">${w.ant.map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div></div>`:''}
+    ${w.note?`<div class="note"><strong>Usage note: </strong>${esc(w.note)}</div>`:''}
+  </article>`;
+}
+function barLine(label,value,max){
+  const pct=max?Math.min(100,Math.round(value/max*100)):0;
+  return `<div style="margin-bottom:14px">
+    <div class="barline"><span>${esc(label)}</span><span>${value} / ${max}</span></div>
+    <div class="progress"><div class="bar" style="width:${pct}%"></div></div>
+  </div>`;
+}
+
+/* =========================================================
+   7. HOME
+   ========================================================= */
+function renderHome(){
+  const el=$('#view-home');
+  const c=countStatuses();
+  const learned=c.learning+c.review+c.mastered;
+  const acc=overallAccuracy();
+  const d=S.daily;
+  const pct=Math.min(100,Math.round(d.words.length/d.goal*100));
+  const remaining=Math.max(0,d.goal-d.words.length);
+
+  el.innerHTML=`
+  <div class="hero">
+    <h2>English Vocabulary</h2>
+    <p>Units 1–3 · Build, practise and master B1–B2 vocabulary with active recall.</p>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Vocabulary progress</h3>
+    <div class="stat-grid" style="margin-top:12px;margin-bottom:0">
+      <div class="stat blue"><div class="num">${WORDS.length}</div><div class="lbl">Total words</div></div>
+      <div class="stat ok"><div class="num">${learned}</div><div class="lbl">✓ Learned</div></div>
+      <div class="stat warn"><div class="num">${c.learning}</div><div class="lbl">◐ Learning</div></div>
+      <div class="stat ok"><div class="num">${c.mastered}</div><div class="lbl">★ Mastered</div></div>
+      <div class="stat"><div class="num">${c.review+c.new}</div><div class="lbl">To review</div></div>
+      <div class="stat"><div class="num">${acc}%</div><div class="lbl">Accuracy</div></div>
+    </div>
+    <div style="margin-top:18px">
+      <div class="barline"><span>Overall mastery</span><span>${Math.round((c.mastered/WORDS.length)*100)}%</span></div>
+      <div class="progress"><div class="bar" style="width:${Math.round(c.mastered/WORDS.length*100)}%"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Daily goal</h3>
+    <div class="barline" style="margin-top:10px"><span>${d.words.length} / ${d.goal} words</span><span>${pct}%</span></div>
+    <div class="progress"><div class="bar" style="width:${pct}%"></div></div>
+    <p class="muted" style="margin-top:10px">${remaining>0?remaining+' word'+(remaining>1?'s':'')+' remaining today':'Goal complete — well done!'}</p>
+    <div class="chips" style="margin-top:8px">
+      ${[5,10,15,20].map(n=>`<button class="chip-btn ${d.goal===n?'on':''}" data-action="set-goal" data-goal="${n}">${n} words</button>`).join('')}
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="card-title">Streak</h3>
+    <div class="stat-grid" style="margin-top:12px;margin-bottom:0">
+      <div class="stat warn"><div class="num">🔥 ${S.streak.current}</div><div class="lbl">Current streak</div></div>
+      <div class="stat"><div class="num">${S.streak.best}</div><div class="lbl">Best streak</div></div>
+      <div class="stat blue"><div class="num">${S.stats.quizHistory.length}</div><div class="lbl">Quizzes taken</div></div>
+    </div>
+  </div>
+
+  <div class="navcards">
+    <button class="navcard" data-action="nav" data-view="learn"><span class="ic">📘</span><span class="t">Learn</span><span class="d">Study words one by one</span></button>
+    <button class="navcard" data-action="nav" data-view="flashcards"><span class="ic">🃏</span><span class="t">Flashcards</span><span class="d">Flip and test yourself</span></button>
+    <button class="navcard" data-action="nav" data-view="practice"><span class="ic">✍️</span><span class="t">Practice</span><span class="d">9 exercise types</span></button>
+    <button class="navcard" data-action="nav" data-view="quiz"><span class="ic">🎯</span><span class="t">Quiz</span><span class="d">Timed vocabulary test</span></button>
+    <button class="navcard" data-action="nav" data-view="review"><span class="ic">🔁</span><span class="t">Review</span><span class="d">Fix your mistakes</span></button>
+    <button class="navcard" data-action="nav" data-view="progress"><span class="ic">📊</span><span class="t">Progress</span><span class="d">Track your learning</span></button>
+  </div>`;
+}
+
+/* =========================================================
+   8. LEARN
+   ========================================================= */
+const learnState={q:'',status:'all',cat:'all',sort:'alpha',idx:0};
+
+function getFiltered(){
+  let list=WORDS.slice();
+  const q=learnState.q.trim().toLowerCase();
+  if(q) list=list.filter(w=>w.word.toLowerCase().includes(q)||w.vi.toLowerCase().includes(q)||w.def.toLowerCase().includes(q));
+  if(learnState.status==='favorite') list=list.filter(w=>S.fav.includes(w.word));
+  else if(learnState.status!=='all') list=list.filter(w=>statusOf(w.word)===learnState.status);
+  if(learnState.cat!=='all') list=list.filter(w=>w.cat===learnState.cat);
+  const rank={new:0,learning:1,review:2,mastered:3};
+  switch(learnState.sort){
+    case 'difficulty': list.sort((a,b)=>(LEVEL_RANK[a.lvl]||1)-(LEVEL_RANK[b.lvl]||1)||a.word.localeCompare(b.word)); break;
+    case 'progress': list.sort((a,b)=>rank[statusOf(a.word)]-rank[statusOf(b.word)]||a.word.localeCompare(b.word)); break;
+    case 'weakest': list.sort((a,b)=>{const pa=S.words[a.word]||{w:0,c:0};const pb=S.words[b.word]||{w:0,c:0};return (pb.w-pb.c)-(pa.w-pa.c)||a.word.localeCompare(b.word);}); break;
+    case 'newest': list.reverse(); break;
+    default: list.sort((a,b)=>a.word.localeCompare(b.word));
+  }
+  return list;
+}
+
+function filterBarHTML(){
+  return `<div class="card filters">
+    <input type="search" id="searchInput" placeholder="Search word or meaning…" value="${esc(learnState.q)}" aria-label="Search vocabulary">
+    <select id="catSelect" aria-label="Filter by category">
+      <option value="all">All categories</option>
+      ${CATS.map(c=>`<option value="${esc(c)}" ${learnState.cat===c?'selected':''}>${esc(c)}</option>`).join('')}
+    </select>
+    <select id="sortSelect" aria-label="Sort vocabulary">
+      ${[['alpha','A → Z'],['difficulty','Difficulty'],['progress','Progress'],['weakest','Weakest first'],['newest','Newest first']]
+        .map(([k,l])=>`<option value="${k}" ${learnState.sort===k?'selected':''}>${l}</option>`).join('')}
+    </select>
+    <div class="chips" id="statusChips">
+      ${[['all','All'],['new','New'],['learning','Learning'],['review','Review'],['mastered','Mastered'],['favorite','Favourites']]
+        .map(([k,l])=>`<button class="chip-btn ${learnState.status===k?'on':''}" data-action="filter" data-status="${k}">${l}</button>`).join('')}
+    </div>
+  </div>`;
+}
+
+function renderLearn(){
+  const el=$('#view-learn');
+  if(!el.dataset.built){
+    el.innerHTML=filterBarHTML()+'<div id="learnBody"></div>';
+    el.dataset.built='1';
+  }else{
+    const chips=$('#statusChips');
+    if(chips) Array.from(chips.children).forEach(b=>b.classList.toggle('on',b.dataset.status===learnState.status));
+  }
+  updateLearnBody();
+}
+
+function updateLearnBody(){
+  const body=$('#learnBody');
+  if(!body) return;
+  const list=getFiltered();
+  if(learnState.idx>=list.length) learnState.idx=0;
+  if(learnState.idx<0) learnState.idx=0;
+  if(!list.length){
+    body.innerHTML=`<div class="empty"><h3>No words found</h3><p>No vocabulary matches your current filters. Try changing the search or filter.</p></div>`;
+    return;
+  }
+  const w=list[learnState.idx];
+  body.innerHTML=`
+    <div class="card" style="padding:12px 18px">
+      <div class="barline" style="margin-bottom:6px"><span>${learnState.idx+1} / ${list.length} words</span><span>${esc(w.cat)}</span></div>
+      <div class="progress sm"><div class="bar" style="width:${((learnState.idx+1)/list.length)*100}%"></div></div>
+    </div>
+    ${wordCardHTML(w)}
+    <div class="row">
+      <button class="btn ghost" data-action="learn-prev" ${learnState.idx===0?'disabled':''}>← Previous</button>
+      <button class="btn ok" data-action="mark-learned" data-word="${esc(w.word)}">✓ Mark as learned</button>
+      <button class="btn primary" data-action="learn-next" ${learnState.idx>=list.length-1?'disabled':''}>Next →</button>
+    </div>`;
+}
+
+/* =========================================================
+   9. FLASHCARDS
+   ========================================================= */
+const fcState={idx:0,flipped:false};
+function renderFlashcards(){
+  const el=$('#view-flashcards');
+  const list=getFiltered();
+  if(!list.length){
+    el.innerHTML=`<div class="empty"><h3>No cards available</h3><p>Change your filters in the Learn section to see flashcards.</p><button class="btn primary" data-action="nav" data-view="learn" style="margin-top:12px">Go to Learn</button></div>`;
+    return;
+  }
+  if(fcState.idx>=list.length) fcState.idx=0;
+  const w=list[fcState.idx];
+  el.innerHTML=`
+  <div class="fc-wrap">
+    <div class="quizbar">
+      <span>Card ${fcState.idx+1} / ${list.length}</span>
+      <span class="muted">Space = flip · ← → = move</span>
+    </div>
+    <div class="flashcard ${fcState.flipped?'flipped':''}" data-action="flip" role="button" tabindex="0" aria-label="Flashcard: click to flip">
+      <div class="fc-inner">
+        <div class="fc-face fc-front">
+          <span class="badge lvl">${esc(w.lvl)}</span>
+          <h2 class="fc-word">${esc(w.word)}</h2>
+          <div class="ipa">${esc(w.ipa)}</div>
+          <div class="muted">${esc(w.pos)}</div>
+          <div class="fc-hint">Click to flip</div>
+        </div>
+        <div class="fc-face fc-back">
+          <h3 style="font-size:24px;margin-bottom:2px">${esc(w.word)}</h3>
+          <div class="ipa">${esc(w.ipa)}</div>
+          <div class="pos">${esc(w.pos)} · ${esc(w.cat)}</div>
+          <p class="vi">${esc(w.vi)}</p>
+          <p class="def">${esc(w.def)}</p>
+          <p class="ex">${esc(w.ex)}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row center">
+      <button class="btn ghost" data-action="flash-prev" ${fcState.idx===0?'disabled':''}>← Previous</button>
+      <button class="btn primary" data-action="flip">🔄 Flip</button>
+      <button class="btn ghost" data-action="flash-next" ${fcState.idx>=list.length-1?'disabled':''}>Next →</button>
+    </div>
+    <div class="row center" style="margin-top:8px">
+      <button class="btn ghost" data-action="speak" data-word="${esc(w.word)}">🔊 Listen</button>
+      <button class="btn ghost" data-action="fav" data-word="${esc(w.word)}">${S.fav.includes(w.word)?'★ Favourite':'☆ Favourite'}</button>
+      <button class="btn ghost" data-action="mark-learned" data-word="${esc(w.word)}">✓ Learned</button>
+    </div>
+  </div>`;
+}
+function flashMove(delta){
+  const list=getFiltered();
+  if(!list.length) return;
+  fcState.idx=(fcState.idx+delta+list.length)%list.length;
+  fcState.flipped=false;
+  renderFlashcards();
+}
+
+/* =========================================================
+   10. QUESTION GENERATORS
+   ========================================================= */
+const STOP=new Set(['of','a','an','the','to','on','in','for','with','your','be','as','and','do','about','at','by','from','up','out']);
+const COLWORDS=[...new Set(WORDS.flatMap(w=>w.col.map(c=>c.split(' ').pop())))].filter(x=>x&&!STOP.has(x.toLowerCase()));
+
+function wordDistractors(w,n){
+  n=n||3;
+  let pool=WORDS.filter(x=>x.word!==w.word&&x.pos===w.pos);
+  if(pool.length<n) pool=WORDS.filter(x=>x.word!==w.word);
+  return shuffle(pool).slice(0,n).map(x=>x.word);
+}
+function viDistractors(w,n){
+  n=n||3;
+  const pool=WORDS.filter(x=>x.word!==w.word&&x.vi!==w.vi);
+  return shuffle(pool).slice(0,n).map(x=>x.vi);
+}
+function soundAlike(w,n){
+  n=n||3;
+  const seen=new Set([w.word]); const out=[];
+  let pool=WORDS.filter(x=>x.word!==w.word&&x.word[0].toLowerCase()===w.word[0].toLowerCase());
+  pool=pool.concat(WORDS.filter(x=>x.word!==w.word&&Math.abs(x.word.length-w.word.length)<=2));
+  for(const x of shuffle(pool)){ if(out.length>=n) break; if(!seen.has(x.word)){seen.add(x.word);out.push(x.word);} }
+  let guard=0;
+  while(out.length<n&&guard<300){ guard++; const r=WORDS[Math.floor(Math.random()*WORDS.length)].word; if(!seen.has(r)){seen.add(r);out.push(r);} }
+  return out;
+}
+
+function qCloze(w){
+  const first=w.word.split(' ')[0];
+  let re;
+  try{ re=new RegExp('\\b'+first.replace(/[-/\\^$*+?.()|[\]{}]/g,'\\$&')+'\\w*','i'); }catch(e){ return null; }
+  if(!re.test(w.ex)) return null;
+  const sent=w.ex.replace(re,'______');
+  return {type:'Cloze',word:w.word,prompt:sent,options:shuffle([w.word].concat(wordDistractors(w))),answer:w.word,
+    explain:`“${w.word}” (${w.pos}) — ${w.vi}. ${w.def.charAt(0).toUpperCase()+w.def.slice(1)}.`};
+}
+function qDefinition(w){
+  return {type:'Definition',word:w.word,prompt:`Which word means: “${w.def}”?`,options:shuffle([w.word].concat(wordDistractors(w))),answer:w.word,
+    explain:`${w.word} ${w.ipa} (${w.pos}) — ${w.vi}. Example: ${w.ex}`};
+}
+function qEnVi(w){
+  return {type:'English → Vietnamese',word:w.word,prompt:`What does “${w.word}” mean?`,options:shuffle([w.vi].concat(viDistractors(w))),answer:w.vi,
+    explain:`${w.word} = ${w.vi}. Example: ${w.ex}`};
+}
+function qViEn(w){
+  return {type:'Vietnamese → English',word:w.word,prompt:`“${w.vi}” — What is the English word?`,input:true,answer:w.word,
+    hint:`${w.pos} · ${w.ipa}`,explain:`${w.word} ${w.ipa} (${w.pos}) — ${w.vi}`};
+}
+function qColloc(w){
+  const col=w.col.filter(c=>c.split(' ').length>=2);
+  if(!col.length) return null;
+  const phrase=col[Math.floor(Math.random()*col.length)];
+  const parts=phrase.split(' ');
+  const idx=parts.length-1;
+  const ans=parts[idx];
+  if(!ans||ans.length<3) return null;
+  const blanked=parts.map((p,i)=>i===idx?'______':p).join(' ');
+  const distract=shuffle(COLWORDS.filter(x=>x.toLowerCase()!==ans.toLowerCase())).slice(0,3);
+  if(distract.length<3) return null;
+  return {type:'Collocation',word:w.word,prompt:`Which word completes the phrase? “${blanked}”`,options:shuffle([ans].concat(distract)),answer:ans,
+    explain:`“${phrase}” is a common collocation with “${w.word}”.`};
+}
+function qFamily(w){
+  if(!w.wf) return null;
+  return {type:'Word family',word:w.word,prompt:w.wf.s,options:shuffle(w.wf.o.slice()),answer:w.wf.a,
+    explain:`The correct form is “${w.wf.a}”. Word family of ${w.word}: ${w.fam.join(', ')}.`};
+}
+function qSynonym(w){
+  if(!w.syn||!w.syn.length) return null;
+  const syn=w.syn[0];
+  const distract=wordDistractors(w,3);
+  if(distract.length<3) return null;
+  return {type:'Synonym',word:w.word,prompt:`Which word is closest in meaning to “${w.word}”?`,options:shuffle([syn].concat(distract)),answer:syn,
+    explain:`“${syn}” is close in meaning to “${w.word}” (${w.vi}).`};
+}
+function qSpelling(w){
+  return {type:'Spelling',word:w.word,prompt:'Listen carefully and type the word you hear.',audio:w.word,input:true,answer:w.word,
+    hint:`Meaning: ${w.vi}`,explain:`The word is “${w.word}” ${w.ipa} — ${w.vi}.`};
+}
+function qListening(w){
+  return {type:'Listening',word:w.word,prompt:'Listen and choose the word you hear.',audio:w.word,options:shuffle([w.word].concat(soundAlike(w))),answer:w.word,
+    explain:`You heard “${w.word}” ${w.ipa} — ${w.vi}.`};
+}
+
+const TYPES={
+  cloze:{label:'Cloze',fn:qCloze},
+  definition:{label:'Definition',fn:qDefinition},
+  en_vi:{label:'English → Vietnamese',fn:qEnVi},
+  vi_en:{label:'Vietnamese → English',fn:qViEn},
+  collocation:{label:'Collocations',fn:qColloc},
+  family:{label:'Word family',fn:qFamily},
+  synonym:{label:'Synonyms',fn:qSynonym},
+  spelling:{label:'Spelling',fn:qSpelling},
+  listening:{label:'Listening',fn:qListening}
+};
+const MIXED_KEYS=['cloze','definition','en_vi','vi_en','collocation','family','synonym','spelling','listening'];
+
+function buildQuestions(type,count,pool){
+  const src=shuffle(pool&&pool.length?pool:WORDS);
+  const out=[];
+  let k=0,guard=0;
+  while(out.length<count&&guard<count*14+80){
+    guard++;
+    const w=src[k%src.length]; k++;
+    const t=(type==='mixed')?MIXED_KEYS[Math.floor(Math.random()*MIXED_KEYS.length)]:type;
+    const maker=TYPES[t]?TYPES[t].fn:null;
+    if(!maker) continue;
+    const q=maker(w);
+    if(q) out.push(q);
+  }
+  return out.slice(0,count);
+}
+
+/* =========================================================
+   11. QUESTION UI HELPERS
+   ========================================================= */
+const LETTERS=['A','B','C','D','E','F'];
+function optionsHTML(q,selected,answered){
+  return `<div class="options">${q.options.map((o,i)=>{
+    let cls='opt';
+    if(answered){
+      if(o===q.answer) cls+=' correct';
+      else if(o===selected) cls+=' wrong';
+    }
+    return `<button class="${cls}" data-action="answer" data-value="${esc(o)}" ${answered?'disabled':''}>
+      <span class="k">${LETTERS[i]||'•'}</span><span>${esc(o)}</span></button>`;
+  }).join('')}</div>`;
+}
+function feedbackHTML(q,isCorrect,userAnswer){
+  return `<div class="feedback ${isCorrect?'ok anim-ok':'bad anim-bad'}">
+    <strong>${isCorrect?'✓ Correct!':'✗ Incorrect.'}</strong>
+    ${isCorrect?'':`Correct answer: <b>${esc(q.answer)}</b><br>`}
+    <span style="opacity:.9">${esc(q.explain)}</span>
+  </div>`;
+}
+
+/* =========================================================
+   12. PRACTICE
+   ========================================================= */
+const prState={stage:'setup',type:'mixed',qs:[],idx:0,correct:0,total:0,answered:false,selected:'',inputVal:'',lastSpoken:-1};
+
+function renderPractice(){
+  const el=$('#view-practice');
+
+  if(prState.stage==='setup'){
+    el.innerHTML=`
+      <div class="card">
+        <h2 class="card-title">Practice</h2>
+        <p class="muted">Choose an exercise type — 10 questions per session.</p>
+        <div class="chips big" style="margin-top:10px">
+          ${[['mixed','Mixed practice'],['cloze','Cloze / gap fill'],['definition','Definition'],['en_vi','English → Vietnamese'],
+             ['vi_en','Vietnamese → English'],['collocation','Collocations'],['family','Word family'],['synonym','Synonyms'],
+             ['spelling','Spelling'],['listening','Listening']]
+            .map(([k,l])=>`<button class="chip-btn" data-action="start-practice" data-type="${k}">${l}</button>`).join('')}
+        </div>
+      </div>`;
+    return;
+  }
+
+  if(prState.stage==='done'){
+    const pct=prState.total?Math.round(prState.correct/prState.total*100):0;
+    el.innerHTML=`
+      <div class="card result-hero">
+        <h2 class="card-title">Practice complete</h2>
+        <div class="result-score">${prState.correct} / ${prState.total}</div>
+        <div class="result-pct">Accuracy: ${pct}%</div>
+        <div class="eval" style="margin-top:16px">${evalText(pct)}</div>
+        <div class="row center" style="margin-top:18px">
+          <button class="btn primary" data-action="practice-again">Practise again</button>
+          <button class="btn ghost" data-action="nav" data-view="review">Review mistakes</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const q=prState.qs[prState.idx];
+  if(!q){ prState.stage='done'; renderPractice(); return; }
+
+  el.innerHTML=`
+    <div class="quizbar">
+      <span>Question ${prState.idx+1} / ${prState.qs.length}</span>
+      <span>Score: ${prState.correct} / ${prState.total}</span>
+    </div>
+    <div class="progress" style="margin-bottom:16px"><div class="bar" style="width:${(prState.idx/prState.qs.length)*100}%"></div></div>
+    <div class="card">
+      <div class="qtype">${esc(q.type)}</div>
+      <p class="qprompt">${esc(q.prompt)}</p>
+      ${q.audio?`<button class="btn ghost" data-action="play-audio" data-word="${esc(q.audio)}">🔊 Listen</button>`:''}
+      ${q.options
+        ? optionsHTML(q,prState.selected,prState.answered)
+        : `<div class="answer-row">
+             <input type="text" id="prInput" placeholder="Type your answer…" value="${esc(prState.inputVal)}" ${prState.answered?'disabled':''} autocomplete="off" spellcheck="false" aria-label="Your answer">
+             ${prState.answered?'':`<button class="btn primary" data-action="submit-input">Submit</button>`}
+           </div>
+           ${q.hint?`<p class="muted" style="margin-top:8px;font-size:13px">${esc(q.hint)}</p>`:''}`}
+      ${prState.answered?feedbackHTML(q,prState.selected===q.answer,prState.selected):''}
+    </div>
+    ${prState.answered?`<div class="row"><button class="btn primary" data-action="practice-next">${prState.idx+1>=prState.qs.length?'See results →':'Next question →'}</button></div>`:''}
+  `;
+
+  if(q.audio&&!prState.answered&&prState.lastSpoken!==prState.idx){
+    prState.lastSpoken=prState.idx;
+    setTimeout(()=>speak(q.word),220);
+  }
+}
+
+function startPractice(type,pool){
+  prState.stage='run';
+  prState.type=type||'mixed';
+  prState.qs=buildQuestions(prState.type,10,pool);
+  if(!prState.qs.length){ toast('Not enough data for this exercise type.'); prState.stage='setup'; renderPractice(); return; }
+  prState.idx=0; prState.correct=0; prState.total=0;
+  prState.answered=false; prState.selected=''; prState.inputVal=''; prState.lastSpoken=-1;
+  renderPractice();
+}
+
+function answerPractice(value){
+  if(prState.answered) return;
+  const q=prState.qs[prState.idx];
+  prState.selected=value;
+  prState.answered=true;
+  const ok=norm(value)===norm(q.answer);
+  prState.total++;
+  if(ok) prState.correct++;
+  S.stats.practiceTotal++; if(ok) S.stats.practiceCorrect++;
+  recordAnswer(q.word,ok,{type:q.type,prompt:q.prompt,your:value,correct:q.answer});
+  renderPractice();
+}
+
+function evalText(pct){
+  if(pct>=90) return 'Excellent vocabulary knowledge.';
+  if(pct>=80) return 'Very good. Review a few weak words.';
+  if(pct>=70) return 'Good progress. More active recall is recommended.';
+  return 'Review the vocabulary and practise again.';
+}
+
+/* =========================================================
+   13. QUIZ
+   ========================================================= */
+const qzState={stage:'setup',qs:[],idx:0,correct:0,total:0,answered:false,selected:'',inputVal:'',size:10,
+  timeLeft:1800,timer:null,startedAt:0,lastSpoken:-1};
+
+function renderQuiz(){
+  const el=$('#view-quiz');
+
+  if(qzState.stage==='setup'){
+    el.innerHTML=`
+      <div class="card">
+        <h2 class="card-title">Vocabulary quiz</h2>
+        <p class="muted">Mixed question types · 30-minute timer · auto-submit when time runs out.</p>
+        <div class="chips big" style="margin-top:10px">
+          ${[10,20,30].map(n=>`<button class="chip-btn" data-action="quiz-start" data-size="${n}">${n} questions</button>`).join('')}
+          <button class="chip-btn" data-action="quiz-start" data-size="all">All words (${WORDS.length})</button>
+        </div>
+        ${S.stats.quizHistory.length?`
+          <div class="section"><h4>Recent results</h4>
+          ${S.stats.quizHistory.slice(0,5).map(h=>`<div class="barline"><span>${esc(h.date)}</span><span>${h.score}/${h.total} · ${h.acc}%</span></div>`).join('')}
+          </div>`:''}
+      </div>`;
+    return;
+  }
+
+  if(qzState.stage==='result'){ renderQuizResult(); return; }
+
+  const q=qzState.qs[qzState.idx];
+  if(!q){ finishQuiz(); return; }
+
+  el.innerHTML=`
+    <div class="quizbar">
+      <span>Question ${qzState.idx+1} / ${qzState.qs.length}</span>
+      <span class="timer ${qzState.timeLeft<=60?'low':''}" id="quizTimer">${fmtTime(qzState.timeLeft)}</span>
+    </div>
+    <div class="progress" style="margin-bottom:16px"><div class="bar" style="width:${(qzState.idx/qzState.qs.length)*100}%"></div></div>
+    <div class="card">
+      <div class="qtype">${esc(q.type)}</div>
+      <p class="qprompt">${esc(q.prompt)}</p>
+      ${q.audio?`<button class="btn ghost" data-action="play-audio" data-word="${esc(q.audio)}">🔊 Listen</button>`:''}
+      ${q.options
+        ? optionsHTML(q,qzState.selected,qzState.answered)
+        : `<div class="answer-row">
+             <input type="text" id="qzInput" placeholder="Type your answer…" value="${esc(qzState.inputVal)}" ${qzState.answered?'disabled':''} autocomplete="off" spellcheck="false" aria-label="Your answer">
+             ${qzState.answered?'':`<button class="btn primary" data-action="quiz-submit-input">Submit</button>`}
+           </div>
+           ${q.hint?`<p class="muted" style="margin-top:8px;font-size:13px">${esc(q.hint)}</p>`:''}`}
+      ${qzState.answered?feedbackHTML(q,qzState.selected===q.answer,qzState.selected):''}
+    </div>
+    ${qzState.answered?`<div class="row"><button class="btn primary" data-action="quiz-next">${qzState.idx+1>=qzState.qs.length?'Finish quiz →':'Next question →'}</button></div>`:''}
+  `;
+
+  if(q.audio&&!qzState.answered&&qzState.lastSpoken!==qzState.idx){
+    qzState.lastSpoken=qzState.idx;
+    setTimeout(()=>speak(q.word),220);
+  }
+}
+
+function fmtTime(s){
+  s=Math.max(0,s);
+  const m=Math.floor(s/60), sec=s%60;
+  return String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');
+}
+
+function startQuiz(size){
+  const count = size==='all' ? WORDS.length : Number(size);
+  qzState.qs=buildQuestions('mixed',count,null);
+  if(!qzState.qs.length){ toast('Could not build a quiz.'); return; }
+  qzState.stage='run';
+  qzState.idx=0; qzState.correct=0; qzState.total=0;
+  qzState.answered=false; qzState.selected=''; qzState.inputVal=''; qzState.lastSpoken=-1;
+  qzState.timeLeft=1800; qzState.startedAt=Date.now();
+  clearInterval(qzState.timer);
+  qzState.timer=setInterval(()=>{
+    qzState.timeLeft--;
+    const tEl=$('#quizTimer');
+    if(tEl){ tEl.textContent=fmtTime(qzState.timeLeft); tEl.classList.toggle('low',qzState.timeLeft<=60); }
+    if(qzState.timeLeft<=0){ clearInterval(qzState.timer); toast("TIME'S UP!"); finishQuiz(); }
+  },1000);
+  renderQuiz();
+}
+
+function answerQuiz(value){
+  if(qzState.answered) return;
+  const q=qzState.qs[qzState.idx];
+  qzState.selected=value;
+  qzState.answered=true;
+  const ok=norm(value)===norm(q.answer);
+  qzState.total++;
+  if(ok) qzState.correct++;
+  S.stats.quizTotal++; if(ok) S.stats.quizCorrect++;
+  recordAnswer(q.word,ok,{type:q.type,prompt:q.prompt,your:value,correct:q.answer});
+  renderQuiz();
+}
+
+function nextQuiz(){
+  qzState.idx++;
+  qzState.answered=false; qzState.selected=''; qzState.inputVal='';
+  if(qzState.idx>=qzState.qs.length) finishQuiz();
+  else renderQuiz();
+}
+
+function finishQuiz(){
+  clearInterval(qzState.timer);
+  qzState.timer=null;
+  const acc=qzState.total?Math.round(qzState.correct/qzState.total*100):0;
+  const elapsed=Math.max(1,Math.round((Date.now()-qzState.startedAt)/1000));
+  S.stats.quizHistory.unshift({date:todayStr(),score:qzState.correct,total:qzState.total,acc:acc,time:elapsed});
+  if(S.stats.quizHistory.length>30) S.stats.quizHistory.length=30;
+  save();
+  qzState.stage='result';
+  renderQuiz();
+}
+
+function renderQuizResult(){
+  const el=$('#view-quiz');
+  const acc=qzState.total?Math.round(qzState.correct/qzState.total*100):0;
+  const elapsed=Math.max(1,Math.round((Date.now()-qzState.startedAt)/1000));
+  const wrong=qzState.total-qzState.correct;
+  el.innerHTML=`
+    <div class="card result-hero">
+      <h2 class="card-title">Vocabulary test result</h2>
+      <div class="result-score">${qzState.correct} / ${qzState.total}</div>
+      <div class="result-pct">Accuracy: ${acc}%</div>
+      <div class="result-grid">
+        <div class="stat ok"><div class="num">${qzState.correct}</div><div class="lbl">Correct</div></div>
+        <div class="stat warn"><div class="num">${wrong}</div><div class="lbl">Incorrect</div></div>
+        <div class="stat blue"><div class="num">${fmtTime(elapsed)}</div><div class="lbl">Time</div></div>
+      </div>
+      <div class="eval">${evalText(acc)}</div>
+      <div class="row center" style="margin-top:18px">
+        <button class="btn primary" data-action="quiz-retake">Retake quiz</button>
+        <button class="btn ghost" data-action="nav" data-view="review">Review mistakes</button>
+        <button class="btn ghost" data-action="nav" data-view="progress">View progress</button>
+      </div>
+    </div>`;
+}
+
+/* =========================================================
+   14. REVIEW
+   ========================================================= */
+function renderReview(){
+  const el=$('#view-review');
+  const reviewWords=WORDS.filter(w=>statusOf(w.word)==='review');
+  const mistakeWords=S.mistakes.map(m=>m.word).filter(x=>WORDS.some(w=>w.word===x));
+  const allWords=[...new Set(mistakeWords.concat(reviewWords.map(w=>w.word)))];
+
+  if(!allWords.length){
+    el.innerHTML=`<div class="empty">
+      <h3>No words to review</h3>
+      <p>You have no vocabulary items to review yet. Complete some practice exercises and your weak words will appear here.</p>
+      <button class="btn primary" data-action="nav" data-view="practice" style="margin-top:12px">Start practising</button>
+    </div>`;
+    return;
+  }
+
+  el.innerHTML=`
+    <div class="card">
+      <h2 class="card-title">Words to review</h2>
+      <p class="muted">${allWords.length} word${allWords.length>1?'s':''} need your attention.</p>
+      <div class="row" style="margin-top:6px">
+        <button class="btn primary" data-action="review-practise">Practise again</button>
+      </div>
+    </div>
+    ${allWords.map(word=>{
+      const w=WORDS.find(x=>x.word===word);
+      const m=S.mistakes.find(x=>x.word===word);
+      return `<div style="margin-bottom:16px">
+        ${wordCardHTML(w)}
+        ${m?`<div class="card" style="margin-top:-8px;border-top-left-radius:0;border-top-right-radius:0">
+          <h4 style="font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:#64748b">Question you answered incorrectly</h4>
+          <p style="font-weight:600">${esc(m.prompt)}</p>
+          <p class="muted" style="font-size:13.5px">Your answer: <b>${esc(m.your||'—')}</b> · Correct answer: <b>${esc(m.correct)}</b> · Type: ${esc(m.type)}</p>
+        </div>`:''}
+      </div>`;
+    }).join('')}`;
+}
+
+/* =========================================================
+   15. FAVOURITES
+   ========================================================= */
+function renderFavorites(){
+  const el=$('#view-favorites');
+  const favs=WORDS.filter(w=>S.fav.includes(w.word));
+  if(!favs.length){
+    el.innerHTML=`<div class="empty">
+      <h3>No favourites yet</h3>
+      <p>Tap the ☆ button on any word card to save it here for quick review.</p>
+      <button class="btn primary" data-action="nav" data-view="learn" style="margin-top:12px">Browse vocabulary</button>
+    </div>`;
+    return;
+  }
+  el.innerHTML=`<div class="card"><h2 class="card-title">Favourites</h2><p class="muted">${favs.length} saved word${favs.length>1?'s':''}.</p></div>`+
+    favs.map(w=>`<div style="margin-bottom:16px">${wordCardHTML(w)}</div>`).join('');
+}
+
+/* =========================================================
+   16. PROGRESS
+   ========================================================= */
+function renderProgress(){
+  const el=$('#view-progress');
+  const c=countStatuses();
+  const learned=c.learning+c.review+c.mastered;
+  const mastery=Math.round(c.mastered/WORDS.length*100);
+  const quizAcc=S.stats.quizTotal?Math.round(S.stats.quizCorrect/S.stats.quizTotal*100):0;
+  const prAcc=S.stats.practiceTotal?Math.round(S.stats.practiceCorrect/S.stats.practiceTotal*100):0;
+
+  el.innerHTML=`
+    <div class="card">
+      <h2 class="card-title">Progress overview</h2>
+      <div class="stat-grid" style="margin-top:12px">
+        <div class="stat blue"><div class="num">${WORDS.length}</div><div class="lbl">Total vocabulary</div></div>
+        <div class="stat ok"><div class="num">${learned}</div><div class="lbl">Learned</div></div>
+        <div class="stat warn"><div class="num">${c.learning}</div><div class="lbl">Learning</div></div>
+        <div class="stat ok"><div class="num">${c.mastered}</div><div class="lbl">Mastered</div></div>
+        <div class="stat"><div class="num">${c.review+c.new}</div><div class="lbl">Need review</div></div>
+        <div class="stat warn"><div class="num">🔥 ${S.streak.current}</div><div class="lbl">Current streak</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">Performance</h2>
+      <div style="margin-top:14px">
+        ${barLine('Vocabulary mastery',c.mastered,WORDS.length)}
+        ${barLine('Quiz accuracy',quizAcc,100)}
+        ${barLine('Practice accuracy',prAcc,100)}
+        ${barLine('Daily goal',S.daily.words.length,S.daily.goal)}
+      </div>
+      <div class="stat-grid" style="margin-top:6px">
+        <div class="stat"><div class="num">${quizAcc}%</div><div class="lbl">Quiz accuracy</div></div>
+        <div class="stat"><div class="num">${prAcc}%</div><div class="lbl">Practice accuracy</div></div>
+        <div class="stat"><div class="num">${S.streak.best}</div><div class="lbl">Best streak</div></div>
+        <div class="stat"><div class="num">${S.stats.quizHistory.length}</div><div class="lbl">Quizzes taken</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">Word status breakdown</h2>
+      <div style="margin-top:12px">
+        ${barLine('New',c.new,WORDS.length)}
+        ${barLine('Learning',c.learning,WORDS.length)}
+        ${barLine('Review',c.review,WORDS.length)}
+        ${barLine('Mastered',c.mastered,WORDS.length)}
+      </div>
+    </div>
+
+    ${S.stats.quizHistory.length?`<div class="card">
+      <h2 class="card-title">Quiz history</h2>
+      <div style="margin-top:10px">
+        ${S.stats.quizHistory.slice(0,10).map(h=>`<div class="barline"><span>${esc(h.date)}</span><span>${h.score}/${h.total} · ${h.acc}% · ${fmtTime(h.time)}</span></div>`).join('')}
+      </div>
+    </div>`:''}
+
+    <div class="card">
+      <h2 class="card-title">Danger zone</h2>
+      <p class="muted">This will erase all learned words, favourites, quiz scores and streaks.</p>
+      <button class="btn danger" data-action="reset-progress" style="margin-top:8px">Reset progress</button>
+    </div>`;
+}
+
+/* =========================================================
+   17. RENDER MAP + EVENTS
+   ========================================================= */
+const RENDER={home:renderHome,learn:renderLearn,flashcards:renderFlashcards,practice:renderPractice,
+  quiz:renderQuiz,review:renderReview,favorites:renderFavorites,progress:renderProgress};
+
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-action]');
+  if(!el) return;
+  const act=el.dataset.action;
+
+  switch(act){
+    case 'nav': go(el.dataset.view); break;
+    case 'speak': case 'play-audio': speak(el.dataset.word); break;
+    case 'fav': {
+      const w=el.dataset.word;
+      const i=S.fav.indexOf(w);
+      if(i>=0){ S.fav.splice(i,1); toast('Removed from favourites'); }
+      else { S.fav.push(w); toast('Added to favourites'); }
+      save(); RENDER[currentView]();
+      break;
+    }
+    case 'mark-learned': {
+      const w=el.dataset.word;
+      const p=S.words[w]||(S.words[w]={c:0,w:0,streak:0});
+      p.c=Math.max(p.c,1); p.streak=Math.max(p.streak,1);
+      const t=todayStr();
+      if(S.daily.date!==t){ S.daily.date=t; S.daily.words=[]; }
+      if(!S.daily.words.includes(w)) S.daily.words.push(w);
+      if(S.streak.last!==t){
+        S.streak.current=(S.streak.last===yesterdayStr())?S.streak.current+1:1;
+        S.streak.last=t; S.streak.best=Math.max(S.streak.best,S.streak.current);
+      }
+      save(); updateTopbar();
+      toast('Marked as learned ✓');
+      if(currentView==='learn'){ learnState.idx++; updateLearnBody(); }
+      else RENDER[currentView]();
+      break;
+    }
+    case 'filter':
+      learnState.status=el.dataset.status; learnState.idx=0; fcState.idx=0;
+      renderLearn();
+      break;
+    case 'learn-prev': learnState.idx=Math.max(0,learnState.idx-1); updateLearnBody(); break;
+    case 'learn-next': { const l=getFiltered(); learnState.idx=Math.min(l.length-1,learnState.idx+1); updateLearnBody(); break; }
+    case 'flip': fcState.flipped=!fcState.flipped; renderFlashcards(); break;
+    case 'flash-prev': flashMove(-1); break;
+    case 'flash-next': flashMove(1); break;
+    case 'start-practice': startPractice(el.dataset.type,null); break;
+    case 'practice-again': prState.stage='setup'; renderPractice(); break;
+    case 'answer': if(currentView==='practice') answerPractice(el.dataset.value); else if(currentView==='quiz') answerQuiz(el.dataset.value); break;
+    case 'submit-input': {
+      const inp=$('#prInput'); if(!inp) break;
+      if(!inp.value.trim()){ toast('Please type an answer.'); break; }
+      prState.inputVal=inp.value; answerPractice(inp.value); break;
+    }
+    case 'quiz-submit-input': {
+      const inp=$('#qzInput'); if(!inp) break;
+      if(!inp.value.trim()){ toast('Please type an answer.'); break; }
+      qzState.inputVal=inp.value; answerQuiz(inp.value); break;
+    }
+    case 'practice-next':
+      prState.idx++;
+      prState.answered=false; prState.selected=''; prState.inputVal=''; prState.lastSpoken=-1;
+      if(prState.idx>=prState.qs.length) prState.stage='done';
+      renderPractice();
+      break;
+    case 'quiz-start': startQuiz(el.dataset.size); break;
+    case 'quiz-next': nextQuiz(); break;
+    case 'quiz-retake': qzState.stage='setup'; renderQuiz(); break;
+    case 'review-practise': {
+      const words=[...new Set(S.mistakes.map(m=>m.word).concat(WORDS.filter(w=>statusOf(w.word)==='review').map(w=>w.word)))];
+      const pool=WORDS.filter(w=>words.includes(w.word));
+      go('practice');
+      startPractice('mixed',pool.length?pool:null);
+      break;
+    }
+    case 'set-goal':
+      S.daily.goal=Number(el.dataset.goal); save(); updateTopbar();
+      if(currentView==='home') renderHome(); else renderProgress();
+      break;
+    case 'reset-progress': confirmReset(); break;
+    case 'modal-cancel': $('#modalRoot').innerHTML=''; break;
+    case 'modal-reset':
+      S=defaultState(); save(); updateTopbar(); $('#modalRoot').innerHTML='';
+      toast('All progress has been reset');
+      go('home');
+      break;
+  }
+});
+
+document.addEventListener('input',e=>{
+  if(e.target.id==='searchInput'){
+    learnState.q=e.target.value; learnState.idx=0; fcState.idx=0;
+    updateLearnBody();
+  }
+});
+document.addEventListener('change',e=>{
+  if(e.target.id==='catSelect'){ learnState.cat=e.target.value; learnState.idx=0; updateLearnBody(); }
+  if(e.target.id==='sortSelect'){ learnState.sort=e.target.value; learnState.idx=0; updateLearnBody(); }
+});
+document.addEventListener('keydown',e=>{
+  if(e.target.matches('input,textarea,select')) return;
+  if(currentView==='flashcards'){
+    if(e.code==='Space'){ e.preventDefault(); fcState.flipped=!fcState.flipped; renderFlashcards(); }
+    else if(e.key==='ArrowLeft'){ e.preventDefault(); flashMove(-1); }
+    else if(e.key==='ArrowRight'){ e.preventDefault(); flashMove(1); }
+  }else if(currentView==='learn'){
+    if(e.key==='ArrowLeft'){ learnState.idx=Math.max(0,learnState.idx-1); updateLearnBody(); }
+    else if(e.key==='ArrowRight'){ const l=getFiltered(); learnState.idx=Math.min(l.length-1,learnState.idx+1); updateLearnBody(); }
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    if(e.target && e.target.id==='prInput'){ e.preventDefault(); const b=document.querySelector('[data-action="submit-input"]'); if(b) b.click(); }
+    if(e.target && e.target.id==='qzInput'){ e.preventDefault(); const b=document.querySelector('[data-action="quiz-submit-input"]'); if(b) b.click(); }
+  }
+});
+
+/* ---------- reset modal ---------- */
+function confirmReset(){
+  $('#modalRoot').innerHTML=`
+    <div class="modal-backdrop">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <h3 id="modalTitle">Reset progress?</h3>
+        <p>Are you sure you want to reset all learning progress? This cannot be undone.</p>
+        <div class="modal-actions">
+          <button class="btn ghost" data-action="modal-cancel">Cancel</button>
+          <button class="btn danger" data-action="modal-reset">Reset</button>
+        </div>
+      </div>
+    </div>`;
+  const bd=$('#modalRoot .modal-backdrop');
+  if(bd) bd.addEventListener('click',ev=>{ if(ev.target===bd) $('#modalRoot').innerHTML=''; });
+  const cancel=$('[data-action="modal-cancel"]');
+  if(cancel) cancel.focus();
+}
+
+/* =========================================================
+   18. INIT
+   ========================================================= */
+(function init(){
+  refreshDailyAndStreak();
+  buildNav();
+  updateTopbar();
+  go('home');
+})();
+</script>
+</body>
+</html>
